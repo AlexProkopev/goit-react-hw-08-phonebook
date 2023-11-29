@@ -1,0 +1,65 @@
+.elemContacts {
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgba(102, 90, 182, 0.5);
+  }
+
+  .contactText {
+    font-family: 'Oswald', sans-serif;
+    color: #ffffff ;
+  }
+
+  .contactTextNumber {
+    font-family: 'Montserrat', sans-serif;
+
+  }
+
+  .wrappertoBtn {
+    width: 60px;
+    display: flex;
+  gap: 10px;
+  }
+
+  .wrappertoBtn:first-child {
+    padding-top: 1px;
+  }
+
+  
+.btnDeleteFavorite {
+    border:  none;
+    background-color: inherit;
+    color: #080404;
+    cursor: pointer;
+    padding-top: 5px;
+    transition: all 0.2s ease-in-out;
+   
+
+  }
+
+  .btnDeleteFavorite:hover {
+       color: #d00303;
+       transform: rotate(180deg);
+  }
+
+  
+  .btnCall {
+    display: block;
+    border:  none;
+    background-color: inherit;
+    color: #080404;
+    cursor: pointer;
+    padding-top: 5px;
+    transition: all 0.2s ease-in-out;
+    
+  }
+   
+  .btnCall:hover {
+    color: #7e03d0;
+    transform: scale(110%);
+}
+
+

@@ -1,0 +1,106 @@
+.btnOpenModal {
+  border: none;
+  background-color: inherit;
+  color: rgba(0, 94, 184, 1);
+  cursor: pointer;
+  padding-top: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btnOpenModal:hover {
+  color: rgb(2, 130, 250);
+  transform: scale(110%);
+}
+
+.wrapperModal {
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(245, 245, 245);
+  box-shadow: 2px 2px 5px rgba(0.2, 0.2, 0.2, 0.2);
+}
+
+
+
+
+
+.text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.span {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.number {
+  text-decoration: none;
+  font-size: 1.2em;
+  margin-top: 0.5em;
+}
+
+.closeModal {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff0a23;
+  color: #fff;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.closeModal:hover {
+  background-color: #c82333;
+}
+
+.btnDeleted {
+  background-color: rgb(184, 3, 0);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 10px;
+}
+
+/* Mobile-first styles */
+@media (min-width: 320px) and (max-width: 781px)  {
+  .wrapperModal {
+    min-width: 250px;
+  }
+  .text, .number {
+    font-size: 12px;
+  }
+  .btnDeleted, .closeModal {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+}
+
+/* Tablet styles */
+@media (min-width: 781px) and (max-width: 1200px)  {
+  .wrapperModal {
+    width: 50%;
+  }
+  .text, .number {
+    font-size: 15px;
+  }
+  .btnDeleted, .closeModal {
+    font-size: 15px;
+    padding: 8px 14px;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1200px) {
+  .wrapperModal {
+    width: 50%;
+  }
+}

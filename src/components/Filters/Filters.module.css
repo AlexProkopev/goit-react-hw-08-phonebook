@@ -1,0 +1,24 @@
+.input {
+    width: 50%;
+    height: 40px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.input::placeholder {
+    font-size: 12px;
+    padding-left: 7px;
+    
+   
+} 
+
+.input:focus {
+    border: 1px solid #391b9c;
+    box-shadow: 0 4px 6px rgba(31, 23, 185, 0.5)
+}
