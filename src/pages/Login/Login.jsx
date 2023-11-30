@@ -15,8 +15,8 @@ const Login = () => {
 
   const hendleSubmit= (e) => {
     e.preventDefault()
-    const email = e.currentTarget.elements.email.value
-    const password = e.currentTarget.elements.password.value
+    const email = e.currentTarget.elements.email.value.trim()
+    const password = e.currentTarget.elements.password.value.trim()
 
     const formData = {
       email,

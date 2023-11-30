@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,100;1,300&family=Oswald:wght@200;400&display=swap');
+
+
 .overlayModal {
   position: fixed;
   top: 0;
@@ -17,7 +20,8 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 300px rgba(238, 3, 255, 0.2);
+  background-color: rgb(255, 255, 255);
   max-width: 400px; 
   width: 100%;
   text-align: center;
@@ -26,22 +30,89 @@
 }
 
 .btnClose {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border:  none;
+  background-color: inherit;
+  color: rgb(131, 22, 182);
   cursor: pointer;
+  padding-top: 5px;
+  transition: all 0.2s ease-in-out;
 }
+
+.btnClose:hover,
+.btnClose:focus {
+  color: rgb(183, 28, 28);
+transform: rotate(360deg)
+
+}
+
 
 
 .modalTitle {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: rgb(122, 122, 122);
 }
 
 .modalNumber {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px
+  ;
+}
+
+.input {
+  width: 200px;
+  font-family: 'Oswald', sans-serif;
+  height: 30px;
+  padding-left: 8px;
+  outline: none;
+  border: 1px solid rgb(62, 26, 161);
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+
+.btnSubmit {
+  font-family: 'Oswald', sans-serif;
+  background: inherit;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(62, 26, 161);
+  z-index: 1;
+  box-shadow: 0 4px 6px rgba(31, 23, 185, 0.5); 
+}
+
+.btnSubmit::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(43, 0, 76, 0.5);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.3s;
+}
+
+.btnSubmit:hover::before {
+  transform: scaleX(1);
+  transform-origin: 100% 50%;
 }

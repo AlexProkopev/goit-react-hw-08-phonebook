@@ -66,4 +66,18 @@ export const registrationUser = createAsyncThunk(
       }
     }
   );
+
+
   
+  export const updateThunk = createAsyncThunk(
+    'auth/update',
+    async (updateElem, thunkApi) => {
+      try {
+        const { data } = await instance.patch(`/contacts/${updateElem.id}`, updateElem.contact);
+        
+        return data;
+      } catch (err) {
+        return thunkApi.rejectWithValue(err.message);
+      }
+    }
+  );

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import css from "./Registration.module.css"
 import {  selectIsLoading } from 'redux/authentification/authentification.selectors'
 import Loader from 'components/Loader/Loader'
@@ -13,9 +12,9 @@ const Registration = () => {
 
   const hendleSubmit= (e) => {
     e.preventDefault()
-    const email = e.currentTarget.elements.email.value
-    const password = e.currentTarget.elements.password.value
-    const name = e.currentTarget.elements.name.value
+    const email = e.currentTarget.elements.email.value.trim()
+    const password = e.currentTarget.elements.password.value.trim()
+    const name = e.currentTarget.elements.name.value.trim()
 
     const formData = {
       email,

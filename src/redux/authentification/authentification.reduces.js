@@ -1,7 +1,7 @@
 import {createSlice, isAnyOf } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix';
-import { fetchUser,logOutThunk, refreshThunk, registrationUser } from './services';
+import { fetchUser,logOutThunk, refreshThunk, registrationUser, updateThunk } from './services';
 
 export const instance = axios.create({
   baseURL: `https://connections-api.herokuapp.com/`,
@@ -49,13 +49,17 @@ const authentifitacionSlice = createSlice({
       .addCase(logOutThunk.fulfilled, () => {
         return initialState;
       })
+      .addCase(updateThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
 
       .addMatcher(
         isAnyOf(
           fetchUser.pending,
           registrationUser.pending,
           refreshThunk.pending,
-          logOutThunk.pending
+          logOutThunk.pending,
+          updateThunk.pending,
         ),
         state => {
           state.isLoading = true;
@@ -67,9 +71,11 @@ const authentifitacionSlice = createSlice({
           fetchUser.rejected,
           registrationUser.rejected,
           refreshThunk.rejected,
-          logOutThunk.rejected
+          logOutThunk.rejected,
+          updateThunk.rejected,
         ),
         (state, { payload }) => {
+          
           state.isLoading = false;
           state.isError = payload;
           Notify.failure("This is an error");

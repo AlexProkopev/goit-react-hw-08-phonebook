@@ -1,18 +1,45 @@
-import React, { useEffect} from 'react';
-import Modal from 'react-modal';
+import React, { useEffect, useState } from 'react';
+
 import css from './ModalContactsInfo.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { modalData } from 'redux/modal/modal.selectors';
+import {  modalData } from 'redux/modal/modal.selectors';
 import { setDataModal, setModalOpen } from 'redux/modal/modal.reducer';
-import BtnComponent from 'components/BtnComponent/BtnComponent';
+
 import IconModalClose from './IconModalClose/IconModalClose';
+import { updateThunk } from 'redux/authentification/services';
+import { fetchContactsList } from 'redux/services';
 
-Modal.setAppElement('#root');
+export const ModalContactsInfo = () => {
+  const {
+    id: initialId,
+    name: initialName,
+    number: initialNumber,
+  } = useSelector(modalData);
 
-export const ModalContactsInfo = dataContacts => {
-  const { id, name, number } = useSelector(modalData);
+
+  const [name, setName] = useState(initialName);
+  const [number, setNumber] = useState(initialNumber);
+
   const dispatch = useDispatch();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const updatedName = e.currentTarget.elements.name.value;
+    const updatedNumber = e.currentTarget.elements.number.value;
+
+    const contacts = {
+      contact: {
+        name: String(updatedName),
+        number: String(updatedNumber),
+      },
+      id: String(initialId),
+    };
+
+    await dispatch(updateThunk(contacts));
+    dispatch(fetchContactsList());
+    dispatch(setModalOpen(false));
+  };
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -28,7 +55,7 @@ export const ModalContactsInfo = dataContacts => {
     };
   }, [dispatch]);
 
-  const handleOverayClick = event => {
+  const handleOverlayClick = event => {
     if (event.target === event.currentTarget) {
       dispatch(setModalOpen(false));
       dispatch(setDataModal(null));
@@ -41,17 +68,37 @@ export const ModalContactsInfo = dataContacts => {
   };
 
   return (
-    <div className={css.overlayModal} onClick={handleOverayClick}>
-      <div className={css.modal} data-id={id}>
-        <BtnComponent
-          type="button"
-          hendlerClick={handleClickClose}
-          classNames="btnClose"
-        >
+    <div className={css.overlayModal} onClick={handleOverlayClick}>
+      <div className={css.modal} data-id={initialId}>
+        <button className={css.btnClose} onClick={handleClickClose}>
           <IconModalClose />
-        </BtnComponent>
-        <h2 className={css.modalTitle}>{name}</h2>
-        <p className={css.modalNumber}>{number}</p>
+        </button>
+        <form className={css.form} onSubmit={handleSubmit}>
+          <label htmlFor="name">Change name:</label>
+            
+          <input
+            className={css.input}
+            type="text"
+            name="name"
+            value={name}
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            onChange={e => setName(e.target.value)}
+          />
+          <label htmlFor="number">Change number:</label>
+          <input
+            className={css.input}
+            type="text"
+            name="number"
+            value={number}
+            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+            onChange={e => setNumber(e.target.value)}
+          />
+          <button className={css.btnSubmit} type="submit">
+            Change
+          </button>
+        </form>
+        <h2 className={css.modalTitle}>Name: {name}</h2>
+        <p className={css.modalNumber}>Number: {number}</p>
       </div>
     </div>
   );
