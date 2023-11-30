@@ -7,6 +7,7 @@ import { addContactThunk, fetchContactsList } from 'redux/services';
 
 const Phonebook = () => {
   const contactsRed = useSelector(selectcontatcs);
+
   const dispatch = useDispatch();
 
   const handleAddContact = async contacts => {
@@ -16,10 +17,10 @@ const Phonebook = () => {
     );
 
     const hasDuplicatesNumber = contactsRed.some(
+     
       ({ number }) => number === contacts.number
     );
-
-    if (hasDuplicatesName) {
+   if (hasDuplicatesName) {
       alert(`${contacts.name} is already in contacts`);
       return;
     } else if (hasDuplicatesNumber) {
@@ -43,7 +44,7 @@ const Phonebook = () => {
 
     const contacts = {
       name: String(name),
-      number: Number.parseFloat(number),
+      number: String(number),
     };
 
     handleAddContact(contacts);

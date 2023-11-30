@@ -30,7 +30,6 @@ const contactsSlice = createSlice({
       .addCase(fetchContactsList.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.contacts = payload;
-        console.log(payload);
       })
       .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
