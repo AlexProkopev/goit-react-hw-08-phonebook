@@ -12,7 +12,6 @@ const BtnComponent = ({ children,hendlerClick,classNames }) => {
         type="button"
         onClick={hendlerClick}
         className={css[classNames]}
-        aria-label="Log out"
       >
         {children}
       </button>

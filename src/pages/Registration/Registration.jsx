@@ -1,14 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registrationUser } from 'redux/authentification/authentification.reduces'
+
 import css from "./Registration.module.css"
-import { selectIsError, selectIsLoading } from 'redux/authentification/authentification.selectors'
+import {  selectIsLoading } from 'redux/authentification/authentification.selectors'
 import Loader from 'components/Loader/Loader'
+import { registrationUser } from 'redux/authentification/services'
 
 const Registration = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
-  const isError = useSelector(selectIsError)
+
 
   const hendleSubmit= (e) => {
     e.preventDefault()

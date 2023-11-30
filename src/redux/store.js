@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { contactsReducer } from './contacts.reducer';
 import { filtersReducer } from './filter/filter.deducer';
-import { favoritesReducer } from './favorites/favorites.reduces';
+
 import { authentifitacionReduces } from './authentification/authentification.reduces';
 
 
@@ -17,6 +17,7 @@ import {
 } from 'redux-persist';
 
 import storage from 'redux-persist/lib/storage';
+import { modalReducer } from './modal/modal.reducer';
 
 const userConfig = {
   key: 'auth',
@@ -28,8 +29,8 @@ export const store = configureStore({
   reducer: {
     contactsStore: contactsReducer,
     filtersStore: filtersReducer,
-    favoritesStore: favoritesReducer,
     authStore:persistReducer(userConfig, authentifitacionReduces) ,
+    modalStore: modalReducer,
   },
   middleware: getDefaultMiddleware =>
   getDefaultMiddleware({

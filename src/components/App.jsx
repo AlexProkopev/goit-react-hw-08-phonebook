@@ -1,33 +1,69 @@
-import React, { useEffect } from 'react';
-
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Favorites from 'pages/Favorites/Favorites';
-import PhonebookPages from 'pages/PhonebookPages/PhonebookPages';
 import Layout from './Layout/Layout';
-import Registration from 'pages/Registration/Registration';
-import Login from 'pages/Login/Login';
 import { useDispatch } from 'react-redux';
-import { refreshThunk } from 'redux/authentification/authentification.reduces';
-import Errore from './Errore/Errore';
+
 import ErrorePage from 'pages/ErrorePage/ErrorePage';
+import PrivateRoute from './PrivateRoute';
+import RestrictedRoute from './RestrictedRoute';
+import { HOME_PAGE, LOGIN_PAGE, PHONEBOOK_PAGE, REGISTRATION_PAGE } from './RoutesConstants/RoutesConstants';
+import Loader from './Loader/Loader';
+import { refreshThunk } from 'redux/authentification/services';
+
+const HomePage = lazy(() => import('./Phonebook/Phonebook'));
+const PhonebookPage = lazy(() => import('pages/PhonebookPages/PhonebookPages'));
+const LoginPage = lazy(() => import('pages/Login/Login'));
+const RegistrationPage = lazy(() => import('pages/Registration/Registration'));
 
 const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-  
-    dispatch(refreshThunk())
-  },[dispatch])
+  const ROUTES = [
+    {
+      path: HOME_PAGE,
+      element:  <PrivateRoute>
+      <HomePage />
+    </PrivateRoute>
+    },
+    {
+      path: PHONEBOOK_PAGE,
+      element:  <PrivateRoute>
+      <PhonebookPage />
+    </PrivateRoute>
+    },
+    {
+      path: LOGIN_PAGE,
+      element:  <RestrictedRoute>
+      <LoginPage />
+    </RestrictedRoute>
+    },
+    {
+      path: REGISTRATION_PAGE,
+      element:  <RestrictedRoute>
+      <RegistrationPage />
+    </RestrictedRoute>
+    },
+  ]
+
+  useEffect(() => {
+    dispatch(refreshThunk());
+  }, [dispatch]);
   return (
-   <Layout>
+    <Layout>
+      <Suspense fallback={<Loader />}>
       <Routes>
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/phonebook" element={<PhonebookPages />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registation" element={<Registration />} />
-        <Route path="*" element={<ErrorePage/>} />
+        {ROUTES.map(({ path, element }) => {
+          return (
+            <Route key={path}
+              path={path}
+              element={element}
+            />
+          );
+        })}
+        <Route path="*" element={<ErrorePage />} />
       </Routes>
-   </Layout>
+      </Suspense>
+    </Layout>
   );
 };
 

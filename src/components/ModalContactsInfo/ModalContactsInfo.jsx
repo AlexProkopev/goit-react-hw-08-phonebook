@@ -1,76 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect} from 'react';
 import Modal from 'react-modal';
-import css from "./ModalContactsInfo.module.css"
+import css from './ModalContactsInfo.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteContactThunk,
-  fetchContactsList,
-  getContactsForId,
-} from 'redux/contacts.reducer';
-import { selectLoading } from 'redux/selectors';
-import Loader from 'components/Loader/Loader';
-import { InfoIcon } from 'components/Contacts/InfoIcon/InfoIcon';
-import { Transition } from 'react-transition-group';
 
+import { modalData } from 'redux/modal/modal.selectors';
+import { setDataModal, setModalOpen } from 'redux/modal/modal.reducer';
+import BtnComponent from 'components/BtnComponent/BtnComponent';
+import IconModalClose from './IconModalClose/IconModalClose';
 
 Modal.setAppElement('#root');
 
 export const ModalContactsInfo = dataContacts => {
-  const { id, name, number } = dataContacts.dataContacts;
-  const loader = useSelector(selectLoading);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { id, name, number } = useSelector(modalData);
   const dispatch = useDispatch();
 
-  const openModal = ()=> {
-    setModalIsOpen(true);
-    dispatch(getContactsForId(id));
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.code === 'Escape') {
+        dispatch(setModalOpen(false));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dispatch]);
+
+  const handleOverayClick = event => {
+    if (event.target === event.currentTarget) {
+      dispatch(setModalOpen(false));
+      dispatch(setDataModal(null));
+    }
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  const hendleDeletedContact = async () => {
-    await dispatch(deleteContactThunk(id));
-    dispatch(fetchContactsList());
-    closeModal();
+  const handleClickClose = () => {
+    dispatch(setModalOpen(false));
+    dispatch(setDataModal(null));
   };
 
   return (
-    <div>
-      <button onClick={openModal} className={css.btnOpenModal}>
-        <InfoIcon />
-      </button>
-  
-      <Transition in={modalIsOpen} timeout={500}>
-        {state => (
-          <Modal
-            className={css.wrapperModal}
-            // portalClassName={`modal-portal ${state}`}
-            // overlayClassName="modal-overlay"
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            overlayClassName={css.modalOverlay}
-            contentLabel="User info"
-          >
-            {loader && <Loader />}
-            <h2 className={css.text}>
-              Name: <span className={css.span}>{name}</span>
-            </h2>
-            <p className={css.number}>
-              Phone: <a href={`tel:${number}`} className={css.span}>
-                {number}
-              </a>
-            </p>
-            <button type="button" className={css.btnDeleted} onClick={hendleDeletedContact}>
-              Deleted
-            </button>
-            <button className={css.closeModal} type="button" onClick={closeModal}>
-              Close
-            </button>
-          </Modal>
-        )}
-      </Transition>
+    <div className={css.overlayModal} onClick={handleOverayClick}>
+      <div className={css.modal} data-id={id}>
+        <BtnComponent
+          type="button"
+          hendlerClick={handleClickClose}
+          classNames="btnClose"
+        >
+          <IconModalClose />
+        </BtnComponent>
+        <h2 className={css.modalTitle}>{name}</h2>
+        <p className={css.modalNumber}>{number}</p>
+      </div>
     </div>
   );
 };

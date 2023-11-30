@@ -6,18 +6,16 @@ import { selectIsAutorization} from 'redux/authentification/authentification.sel
 
 import ProfileInfo from 'components/ProfileInfo/ProfileInfo';
 
+
 const Layout = ({ children }) => {
   const autorization = useSelector(selectIsAutorization);
- 
   return (
     <>
+    
       <div className={css.navWrapper}>
         {autorization ? (
           <>
           <div className={css.linkWrapper}>
-            <NavLink className={css.navLink} to="/favorites">
-              Favorites contact
-            </NavLink>
             <NavLink className={css.navLink} to="/phonebook">
               Phonebook
             </NavLink>

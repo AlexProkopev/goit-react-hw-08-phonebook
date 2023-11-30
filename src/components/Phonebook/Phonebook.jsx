@@ -1,8 +1,9 @@
 import css from './Phonebook.module.css';
-import { addContactThunk, fetchContactsList } from 'redux/contacts.reducer';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { selectcontatcs } from 'redux/selectors';
+import { addContactThunk, fetchContactsList } from 'redux/services';
 
 const Phonebook = () => {
   const contactsRed = useSelector(selectcontatcs);

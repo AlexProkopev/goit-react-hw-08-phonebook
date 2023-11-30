@@ -31,3 +31,18 @@
     gap: 5px;
   }
 
+  .btnOpenModal {
+    background-color: inherit;
+    color: #fff;
+    border: none;
+    padding-top: 5px;
+    cursor: pointer;
+    transition: 250ms linear;
+  }
+
+  .btnOpenModal:hover,
+  .btnOpenModal:focus {
+    color: blue;
+    transform: scale(110%);
+  }
+
