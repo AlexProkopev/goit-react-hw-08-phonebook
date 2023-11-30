@@ -94,7 +94,7 @@ export const ModalContactsInfo = () => {
             onChange={e => setNumber(e.target.value)}
           />
           <button className={css.btnSubmit} type="submit">
-            Change
+            Save
           </button>
         </form>
         <h2 className={css.modalTitle}>Name: {name}</h2>
