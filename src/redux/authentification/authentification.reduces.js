@@ -79,6 +79,10 @@ const authentifitacionSlice = createSlice({
           state.isLoading = false;
           state.isError = payload;
           Notify.failure("This is an error");
+          if ("vibrate" in navigator) {
+            // Вибрировать устройство на 1000 миллисекунд (1 секунда)
+            navigator.vibrate(500);
+          }
         }
       ),
 });

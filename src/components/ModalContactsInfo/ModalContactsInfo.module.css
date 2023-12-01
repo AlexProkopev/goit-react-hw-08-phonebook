@@ -117,7 +117,8 @@ transform: rotate(360deg)
   transition: transform 0.3s;
 }
 
-.btnSubmit:hover::before {
+.btnSubmit:hover::before,
+.btnSubmit:focus::before {
   transform: scaleX(1);
   transform-origin: 100% 50%;
 }
