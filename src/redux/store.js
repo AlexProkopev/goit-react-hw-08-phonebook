@@ -18,6 +18,7 @@ import {
 
 import storage from 'redux-persist/lib/storage';
 import { modalReducer } from './modal/modal.reducer';
+import { modalMessageReducer } from './modalMessage/modalMessage.reducer';
 
 const userConfig = {
   key: 'auth',
@@ -31,6 +32,7 @@ export const store = configureStore({
     filtersStore: filtersReducer,
     authStore:persistReducer(userConfig, authentifitacionReduces) ,
     modalStore: modalReducer,
+    modalMessageStore: modalMessageReducer,
   },
   middleware: getDefaultMiddleware =>
   getDefaultMiddleware({

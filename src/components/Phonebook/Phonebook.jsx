@@ -55,7 +55,7 @@ const Phonebook = () => {
   return (
     <form className={css.form} onSubmit={handleSubmitForm}>
       <label className={css.label} htmlFor="name">
-        Введете имя
+      Enter a name
       </label>
       <input
         className={css.input}
@@ -68,7 +68,7 @@ const Phonebook = () => {
       />
 
       <label className={css.label} htmlFor="number">
-        Введете Номер
+      Enter a number
       </label>
       <input
         className={css.input}

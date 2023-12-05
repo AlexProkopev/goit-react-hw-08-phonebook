@@ -9,6 +9,7 @@ import { setDataModal, setModalOpen } from 'redux/modal/modal.reducer';
 import IconModalClose from './IconModalClose/IconModalClose';
 import { updateThunk } from 'redux/authentification/services';
 import { fetchContactsList } from 'redux/services';
+import BtnDeletedContact from 'components/BtnDeletedContact/BtnDeletedContact';
 
 export const ModalContactsInfo = () => {
   const {
@@ -99,6 +100,7 @@ export const ModalContactsInfo = () => {
         </form>
         <h2 className={css.modalTitle}>Name: {name}</h2>
         <p className={css.modalNumber}>Number: {number}</p>
+        <BtnDeletedContact idCurrent={initialId}/>
       </div>
     </div>
   );
