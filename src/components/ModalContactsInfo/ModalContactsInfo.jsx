@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import css from './ModalContactsInfo.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-
-import {  modalData } from 'redux/modal/modal.selectors';
+import { modalData } from 'redux/modal/modal.selectors';
 import { setDataModal, setModalOpen } from 'redux/modal/modal.reducer';
-
 import IconModalClose from './IconModalClose/IconModalClose';
 import { updateThunk } from 'redux/authentification/services';
 import { fetchContactsList } from 'redux/services';
@@ -17,7 +14,6 @@ export const ModalContactsInfo = () => {
     name: initialName,
     number: initialNumber,
   } = useSelector(modalData);
-
 
   const [name, setName] = useState(initialName);
   const [number, setNumber] = useState(initialNumber);
@@ -76,7 +72,7 @@ export const ModalContactsInfo = () => {
         </button>
         <form className={css.form} onSubmit={handleSubmit}>
           <label htmlFor="name">Change name:</label>
-            
+
           <input
             className={css.input}
             type="text"
@@ -100,7 +96,7 @@ export const ModalContactsInfo = () => {
         </form>
         <h2 className={css.modalTitle}>Name: {name}</h2>
         <p className={css.modalNumber}>Number: {number}</p>
-        <BtnDeletedContact idCurrent={initialId}/>
+        <BtnDeletedContact idCurrent={initialId} />
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect} from 'react';
 import css from './ModalMessage.module.css';
 import {
   isLoadingMessage,
-  isModalMessageOpen,
   modalMessageData,
 } from 'redux/modalMessage/modalMessage.selectors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,27 +29,21 @@ const ModalMessage = () => {
   const hendlerSendMessage = e => {
     e.preventDefault();
 
-   
     const textMessageValue = e.currentTarget.elements.textMessage.value;
 
-
     dispatch(setLoading(true));
-    e.currentTarget.reset()
-   
-    setTimeout(() => {
+    e.currentTarget.reset();
 
+    setTimeout(() => {
       try {
-        
         dispatch(setLoading(false));
         dispatch(setTextMessage(`${textMessageValue} for ${initialName}!`));
         Notify.success('Message sent');
-        
       } catch (error) {
         console.log(error);
         dispatch(setLoading(false));
       }
     }, 1000);
-
   };
 
   useEffect(() => {
@@ -70,8 +63,8 @@ const ModalMessage = () => {
 
   const handleOverlayClick = event => {
     if (event.target === event.currentTarget) {
-        dispatch(setModalMessageOpen(false));
-        dispatch(setDataMessageModal(null));
+      dispatch(setModalMessageOpen(false));
+      dispatch(setDataMessageModal(null));
     }
   };
 
@@ -80,7 +73,7 @@ const ModalMessage = () => {
       {isLoading && <Loader />}
       <div className={css.modal}>
         <h2 className={css.titleMessageModal}>
-        Write message for <span className={css.spanName}>{initialName}</span>
+          Write message for <span className={css.spanName}>{initialName}</span>
         </h2>
         <form className={css.formMessage} onSubmit={hendlerSendMessage}>
           <textarea
@@ -89,7 +82,9 @@ const ModalMessage = () => {
             className={css.messageContent}
             required
           ></textarea>
-          <button type="submit" className={css.sendMessageBtn}>Send message</button>
+          <button type="submit" className={css.sendMessageBtn}>
+            Send message
+          </button>
         </form>
         <BtnComponent classNames={'btnCloseMessage'} hendlerClick={closeModal}>
           <IconModalClose />
